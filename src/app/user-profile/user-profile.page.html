@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button auto-hide="false" menu="side-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Twój profil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="primary">
+  <ion-item>
+    <ion-avatar>
+      <img
+        src="https://ionicframework.com/blog/wp-content/uploads/2016/08/ionic-icon.png"
+      />
+    </ion-avatar>
+    <ion-label>{{user.name}} {{user.surname}}</ion-label>
+  </ion-item>
+<ion-card>
+  <ion-card-header>Opis:</ion-card-header>
+  <ion-card-content>{{user.description}}</ion-card-content>
+</ion-card>
+<ion-item>
+  <ion-label>email:</ion-label>
+  <ion-label>{{user.email}}</ion-label>
+</ion-item>
+<ion-item>
+  <ion-label>numer telefonu:</ion-label>
+  <ion-label>{{user.phoneNumber}}</ion-label>
+</ion-item>
+
+</ion-content>

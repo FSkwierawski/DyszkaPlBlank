@@ -1,3 +1,36 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
-</ion-app>
+<ion-split-pane contentId="content">
+  <ion-menu
+    menuId="side-menu"
+    contentId="content"
+    side="start"
+    type="overlay"
+  >
+    <ion-content color="primary">
+      <ion-list>
+        <ion-list-header>Menu</ion-list-header>
+        <ion-menu-toggle autohide="true">
+          <ion-item routerLink='/offer-screen'>
+            <ion-icon name="globe" slot="start"></ion-icon>
+            <ion-label>Szukaj ofert</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="people" slot="start"></ion-icon>
+            <ion-label>Szukaj użytkowników</ion-label>
+          </ion-item>
+          <ion-item routerLink='/user-profile'>
+            <ion-icon name="build" slot="start"></ion-icon>
+            <ion-label>Profil</ion-label>
+          </ion-item>
+          <ion-item (click)="logOut()">
+            <ion-icon name="walk" slot="start"></ion-icon>
+            <ion-label>Wyloguj</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <ion-router-outlet id="content"></ion-router-outlet>
+</ion-split-pane>
+  </ion-app>

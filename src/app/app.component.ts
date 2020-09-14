@@ -1,8 +1,12 @@
+import { IdentityService } from './services/identity.service';
+import { UserData } from './interfaces/UserData';
 import { Component } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+
+
 
 @Component({
   selector: 'app-root',
@@ -13,7 +17,8 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private identityService: IdentityService
   ) {
     this.initializeApp();
   }
@@ -23,5 +28,9 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+
+  logOut() {
+    this.identityService.logout();
   }
 }
