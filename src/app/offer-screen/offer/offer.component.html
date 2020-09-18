@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button auto-hide="false" menu="side-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{offerDetails$.value.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen color="primary">
+  <img src={{offerDetails$.value.image}}>
+  <ion-item>
+    <ion-thumbnail slot="start"><ion-icon size="large" name="person-outline"></ion-icon></ion-thumbnail>
+      <ion-label>
+        <h3>Właściciel oferty:</h3>
+        <p>{{offerDetails$.value.authorUserName}}</p>
+      </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-thumbnail slot="start"><ion-icon size="large" name="wallet-outline"></ion-icon></ion-thumbnail>
+      <ion-label>
+        <h3>Cena usługi:</h3>
+        <p>{{offerDetails$.value.price}} zł</p>
+      </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-thumbnail slot="start"><ion-icon size="large" name="albums-outline"></ion-icon></ion-thumbnail>
+      <ion-label>
+        <h3>Tagi:</h3>
+        <p>{{offerDetails$.value.tags}}</p>
+      </ion-label>
+  </ion-item>
+  <ion-card>
+    <ion-card-header>Opis:</ion-card-header>
+    <ion-card-content>{{offerDetails$.value.description}}</ion-card-content>
+  </ion-card>
+  
+</ion-content>

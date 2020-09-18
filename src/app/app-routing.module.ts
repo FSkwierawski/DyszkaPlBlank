@@ -17,7 +17,7 @@ const routes: Routes = [
     loadChildren: () => import('./login-screen/login-screen.module').then( m => m.LoginScreenPageModule)
   },
   {
-    path: 'register-screen',
+    path: 'register-screen', // loadChildren: './register-screen/register-screen.module#RegisterScreenPageModule'
     loadChildren: () => import('./register-screen/register-screen.module').then( m => m.RegisterScreenPageModule)
   },
   {
