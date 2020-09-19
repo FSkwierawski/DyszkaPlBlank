@@ -37,6 +37,7 @@ public register(username: string, password: string, confirmPassword: string) {
 }
 
 public logIn(username: string, password: string) {
+  this.currentUser$.next(username);
   const body = new HttpParams()
     .set('username', username)
     .set('password', password)

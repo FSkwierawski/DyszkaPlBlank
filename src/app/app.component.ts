@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { IdentityService } from './services/identity.service';
 import { UserData } from './interfaces/UserData';
 import { Component } from '@angular/core';
@@ -14,11 +15,15 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+
+  currentUser: string;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private identityService: IdentityService
+    private identityService: IdentityService,
+    private router: Router,
+    private identityservice: IdentityService
   ) {
     this.initializeApp();
   }
@@ -32,5 +37,13 @@ export class AppComponent {
 
   logOut() {
     this.identityService.logout();
+  }
+
+  openCurrentUserProfile(){
+    this.identityService.currentUser$.subscribe(currentUser => {
+      this.currentUser = currentUser;
+    });
+    this.router.navigateByUrl(`/offer-screen/${this.currentUser}`);
+
   }
 }
