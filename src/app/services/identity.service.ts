@@ -1,9 +1,11 @@
+import { UserBuilder } from './../model/User.builder';
 import { Router } from '@angular/router';
 import { Config } from './../Config';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../model/User';
+import * as decodeJwt from 'jwt-decode';
 
 
 
@@ -22,7 +24,16 @@ export class IdentityService {
   constructor(
     private httpClient: HttpClient,
     private router: Router
-  ) { }
+  ) {
+    this.accessToken$.subscribe(token => {
+      localStorage.setItem(Config.localStorageAccessTokenKey, token);
+      if (token) {
+        const decodedToken = decodeJwt(token);
+        this.user$.next(new UserBuilder(this.user$.value).addIdentityData(decodedToken).build());
+        console.log.apply(this.user$);
+      }
+    });
+   }
 
 
 public register(username: string, password: string, confirmPassword: string) {
@@ -52,6 +63,7 @@ public logIn(username: string, password: string) {
   }).subscribe(response => {
     this.accessToken$.next(response['access_token']);
     this.refreshToken$.next(response['refresh_token']);
+    console.log(this.user$);
   }, error => {
     this.accessToken$.next('');
   });
