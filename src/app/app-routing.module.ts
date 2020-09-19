@@ -32,6 +32,10 @@ const routes: Routes = [
     path: 'offer-creator',
     loadChildren: () => import('./offer-creator/offer-creator.module').then( m => m.OfferCreatorPageModule)
   },
+  {
+    path: 'edit-profile',
+    loadChildren: () => import('./edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
+  },
 ];
 
 @NgModule({

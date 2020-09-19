@@ -1,12 +1,12 @@
-import { FormGroup, FormsModule, FormControl } from '@angular/forms';
+import { FormsModule, FormGroup, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-edit-profile',
-  templateUrl: './edit-profile.component.html',
-  styleUrls: ['./edit-profile.component.scss'],
+  templateUrl: './edit-profile.page.html',
+  styleUrls: ['./edit-profile.page.scss'],
 })
-export class EditProfileComponent implements OnInit {
+export class EditProfilePage implements OnInit {
 
   profileCreator = new FormGroup({
     image: new FormControl(''),
@@ -17,8 +17,13 @@ export class EditProfileComponent implements OnInit {
   });
 
   constructor(
-    private formsModule: FormsModule) { }
+    private formsModule: FormsModule
+    ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
+
+  onSubmit()  {
+  }
 
 }
