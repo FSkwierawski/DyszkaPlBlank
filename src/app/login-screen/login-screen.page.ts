@@ -32,6 +32,7 @@ export class LoginScreenPage implements OnInit {
 
   login() {
     this.identityService.logIn(this.username, this.password);
+    this.router.navigateByUrl('/offer-screen');
   }
 
 }

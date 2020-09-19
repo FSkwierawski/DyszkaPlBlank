@@ -1,3 +1,6 @@
+import { Router, ActivatedRoute } from '@angular/router';
+import { User } from './../model/User';
+import { BehaviorSubject } from 'rxjs';
 import { UserData } from './../interfaces/UserData';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,8 +11,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfilePage implements OnInit {
 
+  user$ = new BehaviorSubject<User>(null);
+
 public user: UserData;
-  constructor() {
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute) {
     this.user = {
       name: 'Jan',
       surname: 'Kowalski',
@@ -20,6 +27,7 @@ public user: UserData;
    }
 
   ngOnInit() {
+
 
   }
 

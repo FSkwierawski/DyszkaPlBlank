@@ -63,4 +63,8 @@ export class OfferScreenPage implements OnInit {
     this.router.navigateByUrl(`offer-screen/${offer.id}`);
   }
 
+  openOfferCreator() {
+    this.router.navigateByUrl('offer-creator');
+  }
+
 }

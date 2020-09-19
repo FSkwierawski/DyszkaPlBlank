@@ -12,6 +12,7 @@ import { User } from '../model/User';
   providedIn: 'root'
 })
 export class IdentityService {
+  public currentUser$ = new BehaviorSubject<string>(null);
   public user$ = new BehaviorSubject<User>(null);
   private accessToken$ = new BehaviorSubject<string>(localStorage.getItem(Config.localStorageAccessTokenKey) || '');
   private accessTokenExpirationTimestamp: number;
@@ -50,7 +51,6 @@ public logIn(username: string, password: string) {
   }).subscribe(response => {
     this.accessToken$.next(response['access_token']);
     this.refreshToken$.next(response['refresh_token']);
-    this.router.navigateByUrl('/user-profile');
   }, error => {
     this.accessToken$.next('');
   });

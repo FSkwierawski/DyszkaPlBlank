@@ -28,6 +28,10 @@ const routes: Routes = [
     path: 'offer-screen',
     loadChildren: () => import('./offer-screen/offer-screen.module').then( m => m.OfferScreenPageModule)
   },
+  {
+    path: 'offer-creator',
+    loadChildren: () => import('./offer-creator/offer-creator.module').then( m => m.OfferCreatorPageModule)
+  },
 ];
 
 @NgModule({
