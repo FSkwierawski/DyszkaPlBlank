@@ -1,3 +1,5 @@
+import { IdentityService } from './../services/identity.service';
+import { UserService } from './../services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from './../model/User';
 import { BehaviorSubject } from 'rxjs';
@@ -12,11 +14,17 @@ import { Component, OnInit } from '@angular/core';
 export class UserProfilePage implements OnInit {
 
   user$ = new BehaviorSubject<User>(null);
+  currentUser: string;
+  loading = true;
+  name: string;
 
 public user: UserData;
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private userService: UserService,
+    private identityService: IdentityService,
+    private activatedroute: ActivatedRoute) {
     this.user = {
       name: 'Jan',
       surname: 'Kowalski',
@@ -27,8 +35,12 @@ public user: UserData;
    }
 
   ngOnInit() {
-
-
+    const username = this.activatedRoute.snapshot.paramMap.get('id');
+    this.userService.getUserByName(username).subscribe ((userDetails: User) => {
+      this.user$.next(userDetails);
+      this.loading = false;
+      this.name = this.user$.value.userName;
+    });
   }
 
 }

@@ -10,6 +10,8 @@ export class OfferService {
   constructor(private httpClient: HttpClient, private router: Router) {}
 
   public getById(id: string) {
+    const a = this.httpClient.get(`${this.offerUrl}${id}`);
+    console.log(a);
     return this.httpClient.get(`${this.offerUrl}${id}`);
   }
 

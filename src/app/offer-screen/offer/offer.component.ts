@@ -4,6 +4,7 @@ import { OfferService } from './../../services/offer.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-offer',
   templateUrl: './offer.component.html',
@@ -12,20 +13,28 @@ import { Component, OnInit } from '@angular/core';
 export class OfferComponent implements OnInit {
 
   public offerDetails$ = new BehaviorSubject<Offer[]>([]);
-  public offerDetails: Offer;
-
+  public tempOffer: Offer;
+  public loading = true;
 
   constructor(
     private router: Router,
     private offerService: OfferService,
     private activatedRoute: ActivatedRoute
-  ) { }
+  )
+  {
+  }
 
   ngOnInit() {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.offerService.getById(id).subscribe((offerDetails: Offer[]) => {
-      this.offerDetails$.next(offerDetails);
+    this.offerService.getById(id).subscribe((offerDetails: Offer) => {
+      // this.offerDetails$.next(offerDetails);
+      this.tempOffer = new Offer(offerDetails);
+      this.loading = false;
     });
+  }
+
+  openOwnerProfile()  {
+    this.router.navigateByUrl(`/user-profile/${this.tempOffer.authorUserName}`);
   }
 
 }

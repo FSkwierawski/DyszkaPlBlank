@@ -7,26 +7,30 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content color="primary">
+<div *ngIf="loading">
+  <h3>Ładowanie</h3>
+</div>
+
+<ion-content color="primary" *ngIf="!loading">
   <ion-item>
     <ion-avatar>
       <img
         src="https://ionicframework.com/blog/wp-content/uploads/2016/08/ionic-icon.png"
       />
     </ion-avatar>
-    <ion-label>{{user.name}} {{user.surname}}</ion-label>
+    <ion-label>{{user$.value.userName}}</ion-label>
   </ion-item>
 <ion-card>
   <ion-card-header>Opis:</ion-card-header>
-  <ion-card-content>{{user.description}}</ion-card-content>
+  <ion-card-content>{{user$.value.description}}</ion-card-content>
 </ion-card>
 <ion-item>
   <ion-label>email:</ion-label>
-  <ion-label>{{user.email}}</ion-label>
+  <ion-label>{{user$.value.email}}</ion-label>
 </ion-item>
 <ion-item>
   <ion-label>numer telefonu:</ion-label>
-  <ion-label>{{user.phoneNumber}}</ion-label>
+  <ion-label>{{user$.value.telephoneNumber}}</ion-label>
 </ion-item>
 
 </ion-content>
