@@ -30,7 +30,6 @@ export class IdentityService {
       if (token) {
         const decodedToken = decodeJwt(token);
         this.user$.next(new UserBuilder(this.user$.value).addIdentityData(decodedToken).build());
-        console.log.apply(this.user$);
       }
     });
    }
