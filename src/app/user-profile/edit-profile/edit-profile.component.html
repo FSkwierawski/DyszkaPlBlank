@@ -3,16 +3,16 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>offer-creator</ion-title>
+    <ion-title>profile-creator</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content color="primary">
   <ion-list lines="full">
     <ion-list-header lines="full">
-      <label>Nowa oferta</label>
+      <label>Edytuj swoje dane</label>
     </ion-list-header>
-    <form [formGroup]="offerCreator" (ngSubmit)="onSubmit()">
+    <form [formGroup]="profileCreator" (ngSubmit)="onSubmit()">
       <ion-item>
         <ion-label>Tytuł oferty: </ion-label>
         <ion-input placeholder="tytuł" formControlName="title" type="text"></ion-input>

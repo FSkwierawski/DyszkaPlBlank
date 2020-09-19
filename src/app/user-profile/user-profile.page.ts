@@ -43,4 +43,8 @@ public user: UserData;
     });
   }
 
+  openProfileDataeditor() {
+    this.router.navigateByUrl('/edit-profile');
+  }
+
 }
