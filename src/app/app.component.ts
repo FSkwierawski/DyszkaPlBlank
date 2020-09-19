@@ -43,7 +43,7 @@ export class AppComponent {
     this.identityService.currentUser$.subscribe(currentUser => {
       this.currentUser = currentUser;
     });
-    this.router.navigateByUrl(`/offer-screen/${this.currentUser}`);
+    this.router.navigateByUrl(`/user-profile/${this.currentUser}`);
 
   }
 }
