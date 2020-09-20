@@ -75,6 +75,10 @@ public logout() {
   this.router.navigateByUrl('/');
 }
 
+public getAccesToken() {
+  return this.accessToken$.value;
+}
+
 
 
 }

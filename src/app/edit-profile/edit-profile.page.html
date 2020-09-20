@@ -14,7 +14,12 @@
     <form [formGroup]="profileCreator" (ngSubmit)="onSubmit()">
       <ion-item>
         <ion-label>Dodaj zdjęcie</ion-label>
-        <ion-input type="file"></ion-input>
+        <ion-input
+          type="file"
+          accept="/image/*"
+          formControlName="profileImage"
+          (change)="transformImage($event)"
+        ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>Nazwa użytkownika: </ion-label>
@@ -22,17 +27,23 @@
       </ion-item>
       <ion-item>
         <ion-label>numer telefonu: </ion-label>
-        <ion-input formControlName="phoneNumber" type="text"></ion-input>
+        <ion-input formControlName="telephoneNumber" type="text"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label>adres email:  </ion-label>
+        <ion-label>adres email: </ion-label>
         <ion-input formControlName="email" type="text"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>Krótki opis: </ion-label>
         <ion-input formControlName="description" type="text"></ion-input>
       </ion-item>
-      <ion-button size="medium" expand="block" type="submit" [disabled]="!profileCreator.valid">Dodaj ofertę</ion-button>
+      <ion-button
+        size="medium"
+        expand="block"
+        type="submit"
+        [disabled]="!profileCreator.valid"
+        >Edytuj dane</ion-button
+      >
     </form>
   </ion-list>
 </ion-content>

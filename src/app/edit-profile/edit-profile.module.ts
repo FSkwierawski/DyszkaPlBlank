@@ -1,3 +1,4 @@
+import { UserService } from './../services/user.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -17,6 +18,7 @@ import { EditProfilePage } from './edit-profile.page';
     EditProfilePageRoutingModule,
     ReactiveFormsModule,
   ],
+  providers: [UserService],
   declarations: [EditProfilePage]
 })
 export class EditProfilePageModule {}

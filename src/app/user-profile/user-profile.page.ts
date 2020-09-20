@@ -1,3 +1,4 @@
+import { UserBuilder } from './../model/User.builder';
 import { IdentityService } from './../services/identity.service';
 import { UserService } from './../services/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -14,6 +15,7 @@ import { Component, OnInit } from '@angular/core';
 export class UserProfilePage implements OnInit {
 
   user$ = new BehaviorSubject<User>(null);
+  user = new User();
   currentUser: string;
   loading = true;
   name: string;
@@ -37,9 +39,15 @@ public user: UserData;
   ngOnInit() {
     const username = this.activatedRoute.snapshot.paramMap.get('id');
     this.userService.getUserByName(username).subscribe ((userDetails: User) => {
-      this.user$.next(userDetails);
-      this.loading = false;
-      this.name = this.user$.value.userName;
+      this.userService.getUserIdentityData(username).subscribe(identityUser => {
+        this.user$.next(new UserBuilder().addApplicationData(userDetails).addIdentityData(identityUser).build());
+        this.identityService.user$.next(new UserBuilder().addApplicationData(userDetails).addIdentityData(identityUser).build());
+        this.loading = false;
+        this.name = this.user$.value.userName;
+      });
+      this.identityService.user$.subscribe(userInfromations => {
+        this.user = userInfromations;
+      });
     });
   }
 

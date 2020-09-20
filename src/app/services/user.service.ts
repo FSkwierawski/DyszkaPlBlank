@@ -17,5 +17,20 @@ export class UserService {
 public getUserByName(username: string){
     return this.httpClient.get(`${this.url}${username}`);
  }
+ 
+public editCurrentUser(data) {
+    const headers = new HttpHeaders({
+        Authorization: `Bearer ${this.identityService.getAccesToken()}`
+    });
+    return this.httpClient.post(`${this.url}${this.identityService.user$.value.applicationId}`, data, {headers});
+}
+
+public getUserIdentityData(username: string) {
+    const headers = new HttpHeaders({
+        Authorization: `Bearer ${this.identityService.getAccesToken()}`
+    });
+    return this.httpClient.get(`${this.url}identity/${username}`);
+}
+
 }
 

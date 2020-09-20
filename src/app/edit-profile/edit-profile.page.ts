@@ -1,3 +1,8 @@
+import { UserBuilder } from './../model/User.builder';
+import { BehaviorSubject } from 'rxjs';
+import { UserService } from './../services/user.service';
+import { User } from './../model/User';
+import { IdentityService } from './../services/identity.service';
 import { FormsModule, FormGroup, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,22 +13,67 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditProfilePage implements OnInit {
 
+  private selectedImage = '';
+
+
+  public user = new User();
   profileCreator = new FormGroup({
-    image: new FormControl(''),
+    profileImage: new FormControl(''),
     userName: new FormControl(''),
-    phoneNumber: new FormControl(''),
+    telephoneNumber: new FormControl(''),
     email: new FormControl(''),
     description: new FormControl('')
   });
 
   constructor(
-    private formsModule: FormsModule
-    ) { }
+    private formsModule: FormsModule,
+    private identityService: IdentityService,
+    private userService: UserService,
+
+
+    )
+    {
+
+      this.identityService.user$.subscribe(user => {
+        this.user = user;
+        this.profileCreator.patchValue(user);
+      });
+    }
 
   ngOnInit() {
+
   }
 
   onSubmit()  {
+    const user = this.createUserFromForm();
+    console.log(user.profileImage);
+    this.userService.editCurrentUser(user).subscribe(response => {
+      console.log(response);
+    });
+  }
+
+  createUserFromForm() {
+    return{
+      profileImage: this.selectedImage,
+      userName: this.profileCreator.controls.userName.value,
+      telephoneNumber: this.profileCreator.controls.telephoneNumber.value,
+      email: this.profileCreator.controls.email.value,
+      description: this.profileCreator.controls.description.value
+    };
+  }
+
+  transformImage(e) {
+    let file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    let pattern = /image-*/;
+    let reader = new FileReader();
+    if (!file.type.match(pattern)) {
+      alert('invalid img format');
+      return;
+    }
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.selectedImage = reader.result.toString();
+    };
   }
 
 }
