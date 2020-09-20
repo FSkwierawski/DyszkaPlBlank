@@ -19,22 +19,22 @@ export class UserProfilePage implements OnInit {
   currentUser: string;
   loading = true;
   name: string;
+  isOwner: boolean;
 
-public user: UserData;
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private userService: UserService,
     private identityService: IdentityService,
-    private activatedroute: ActivatedRoute) {
-    this.user = {
-      name: 'Jan',
-      surname: 'Kowalski',
-      description: 'Lorem ipsum',
-      phoneNumber: '111222333',
-      email: 'xyz@wp.pl'
-    };
-   }
+    private activatedroute: ActivatedRoute)
+    {
+      this.identityService.user$.subscribe(userInfromations => {
+        this.user = userInfromations;
+      });
+
+      this.isOwner = this.isProfileOwner();
+    }
 
   ngOnInit() {
     const username = this.activatedRoute.snapshot.paramMap.get('id');
@@ -45,14 +45,21 @@ public user: UserData;
         this.loading = false;
         this.name = this.user$.value.userName;
       });
-      this.identityService.user$.subscribe(userInfromations => {
-        this.user = userInfromations;
-      });
+
     });
   }
 
   openProfileDataeditor() {
     this.router.navigateByUrl('/edit-profile');
+  }
+
+  isProfileOwner(): boolean {
+    if (this.identityService.currentUser$.value === this.activatedRoute.snapshot.paramMap.get('id')) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
 }

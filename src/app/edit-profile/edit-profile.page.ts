@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { UserBuilder } from './../model/User.builder';
 import { BehaviorSubject } from 'rxjs';
 import { UserService } from './../services/user.service';
@@ -29,8 +30,7 @@ export class EditProfilePage implements OnInit {
     private formsModule: FormsModule,
     private identityService: IdentityService,
     private userService: UserService,
-
-
+    private router: Router
     )
     {
 
@@ -49,6 +49,8 @@ export class EditProfilePage implements OnInit {
     console.log(user.profileImage);
     this.userService.editCurrentUser(user).subscribe(response => {
       console.log(response);
+      this.router.navigateByUrl(`user-profile/${this.identityService.currentUser$.value}`);
+
     });
   }
 

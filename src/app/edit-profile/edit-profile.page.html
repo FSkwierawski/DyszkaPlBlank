@@ -37,13 +37,15 @@
         <ion-label>Krótki opis: </ion-label>
         <ion-input formControlName="description" type="text"></ion-input>
       </ion-item>
-      <ion-button
-        size="medium"
-        expand="block"
-        type="submit"
-        [disabled]="!profileCreator.valid"
-        >Edytuj dane</ion-button
-      >
+      <div>
+        <ion-button
+          size="medium"
+          expand="block"
+          type="submit"
+          [disabled]="!profileCreator.valid"
+          >Edytuj dane</ion-button
+        >
+      </div>
     </form>
   </ion-list>
 </ion-content>

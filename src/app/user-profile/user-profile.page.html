@@ -14,27 +14,32 @@
 <ion-content color="primary" *ngIf="!loading">
   <ion-item>
     <ion-avatar>
-      <img
-        src={{user$.value.profileImage}}
-      />
+      <img src="{{user.profileImage}}" />
     </ion-avatar>
-    <ion-label>{{user$.value.userName}}</ion-label>
+    <ion-label>{{user.userName}}</ion-label>
   </ion-item>
   <ion-card>
     <ion-card-header>Opis:</ion-card-header>
-    <ion-card-content>{{user$.value.description}}</ion-card-content>
+    <ion-card-content>{{user.description}}</ion-card-content>
   </ion-card>
   <ion-item>
     <ion-label>email:</ion-label>
-    <ion-label>{{user$.value.email}}</ion-label>
+    <ion-label>{{user.email}}</ion-label>
   </ion-item>
   <ion-item>
     <ion-label>numer telefonu:</ion-label>
-    <ion-label>{{user$.value.telephoneNumber}}</ion-label>
+    <ion-label>{{user.telephoneNumber}}</ion-label>
   </ion-item>
   <ion-list>
-    <ion-item text-center>
-      <ion-button (click)="openProfileDataeditor();" slot="start" size="medium">Edytuj</ion-button>
-    </ion-item>
+    <div *ngIf="isOwner">
+      <ion-item text-center>
+        <ion-button
+          (click)="openProfileDataeditor();"
+          slot="start"
+          size="medium"
+          >Edytuj</ion-button
+        >
+      </ion-item>
+    </div>
   </ion-list>
 </ion-content>
