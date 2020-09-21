@@ -16,7 +16,6 @@ export class EditProfilePage implements OnInit {
 
   private selectedImage = '';
 
-
   public user = new User();
   profileCreator = new FormGroup({
     profileImage: new FormControl(''),

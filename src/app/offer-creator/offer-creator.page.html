@@ -14,12 +14,21 @@
     </ion-list-header>
     <form [formGroup]="offerCreator" (ngSubmit)="onSubmit()">
       <ion-item>
+        <ion-label>Dodaj zdjęcie</ion-label>
+        <ion-input
+          type="file"
+          accept="/image/*"
+          formControlName="image"
+          (change)="transformImage($event)"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
         <ion-label>Tytuł oferty: </ion-label>
         <ion-input placeholder="tytuł" formControlName="title" type="text"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>Cena: </ion-label>
-        <ion-input placeholder="cena" formControlName="price" type="text"></ion-input>
+        <ion-input placeholder="cena" formControlName="price" type="number"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>Tagi: </ion-label>

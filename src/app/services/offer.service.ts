@@ -1,4 +1,5 @@
-import { HttpClient } from '@angular/common/http';
+import { IdentityService } from './identity.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, catchError } from 'rxjs/operators';
@@ -7,7 +8,10 @@ import { map, catchError } from 'rxjs/operators';
 export class OfferService {
   private offerUrl = `https://Localhost:5001/api/offers/`;
 
-  constructor(private httpClient: HttpClient, private router: Router) {}
+  constructor(
+    private httpClient: HttpClient,
+    private router: Router,
+    private identityService: IdentityService) {}
 
   public getById(id: string) {
     const a = this.httpClient.get(`${this.offerUrl}${id}`);
@@ -27,7 +31,10 @@ export class OfferService {
   }
 
   public addOffer(offer) {
-    this.httpClient.post(this.offerUrl, offer).subscribe(
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.identityService.getAccesToken()}`
+  });
+    this.httpClient.post(this.offerUrl, offer, {headers}).subscribe(
       (result) => {
         // this.snackBar.open('Utworzono ofertę');
         this.router.navigateByUrl(`/offer/${result}`);
