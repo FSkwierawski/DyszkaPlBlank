@@ -1,3 +1,4 @@
+import { CommentService } from './../services/comment.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -16,6 +17,7 @@ import { OfferComponent } from './offer/offer.component';
     IonicModule,
     OfferScreenPageRoutingModule
   ],
+  providers: [CommentService],
   declarations: [OfferScreenPage, OfferComponent]
 })
 export class OfferScreenPageModule {}

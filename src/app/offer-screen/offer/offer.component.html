@@ -38,5 +38,19 @@
     <ion-card-header>Opis:</ion-card-header>
     <ion-card-content>{{tempOffer.shortDescription}}</ion-card-content>
   </ion-card>
+
+
+    <ion-card>
+      <ion-card-header>Autor</ion-card-header>
+      <ion-card-content>Treść komentarza</ion-card-content>
+    </ion-card>
+<form #form="ngForm" (ngSubmit)="addComment(form)">
+    <ion-item>
+      <ion-label position="floating">Treść komentarza</ion-label>
+      <ion-textarea name="newComment" [(ngModel)]="newComment" type="text" ngModel required></ion-textarea>
+      <ion-button type="submit">Dodaj</ion-button>
+    </ion-item>
+  </form>
+
   
 </ion-content>

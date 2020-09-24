@@ -31,6 +31,7 @@ export class OfferCreatorPage implements OnInit {
 
   onSubmit() {
     this.offerservice.addOffer(this.createOfferfromForm());
+    
   }
 
   transformImage(e) {

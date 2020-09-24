@@ -49,7 +49,6 @@ export class EditProfilePage implements OnInit {
     this.userService.editCurrentUser(user).subscribe(response => {
       console.log(response);
       this.router.navigateByUrl(`user-profile/${this.identityService.currentUser$.value}`);
-
     });
   }
 
