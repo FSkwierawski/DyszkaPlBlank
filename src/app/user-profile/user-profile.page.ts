@@ -62,4 +62,8 @@ export class UserProfilePage implements OnInit {
     }
   }
 
+  openUserOffers(){
+    this.router.navigateByUrl(`user-offers/${this.user.userName}`);
+  }
+
 }
