@@ -70,7 +70,15 @@ export class OfferComponent implements OnInit {
       isPositive: false,
       offerId: id
     });
-    this.commentService.addComment(commentToadd);
+    this.commentService.addComment(commentToadd).subscribe( () => {
+      this.getComments(1);
+    });
+  }
+
+  deleteComment(id: string) {
+    this.commentService.deleteComment(id).subscribe(() => {
+      this.getComments(1);
+    });
   }
 
 }

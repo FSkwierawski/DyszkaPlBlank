@@ -8,9 +8,12 @@
 </ion-header>
 
 <ion-content fullscreen color="primary">
-  <ion-item>
-    <ion-input placeholder="czego szukasz?" clear-input="true"></ion-input>
+  <form #form="ngForm">
+  <ion-item (ngSubmit)="getPagedByTags(form)" > 
+    <ion-input name="tags" [(ngModel)]="tags" placeholder="tag1,tag2" clear-input="true" ngModel required></ion-input>
+    <ion-fab-button (click)="getPagedByTags(tags)" type="submit" size="small">szukaj</ion-fab-button>
   </ion-item>
+</form>
 
   <div *ngFor="let offer of offers">
     <ion-card (click)="openOfferDetails(offer);">

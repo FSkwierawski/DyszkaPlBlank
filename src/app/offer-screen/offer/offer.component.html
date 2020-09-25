@@ -40,13 +40,17 @@
   </ion-card>
 
 
-    <ion-card>
-      <ion-card-header>Autor</ion-card-header>
-      <ion-card-content>Treść komentarza</ion-card-content>
+    <ion-card *ngFor="let comment of comments" >
+      <ion-card-header>{{comment.authorUserName}}</ion-card-header>
+      <ion-card-subtitle>{{comment.createdDate | date: 'dd.MM.yyyy'}}</ion-card-subtitle>
+      <ion-card-content>{{comment.text}}</ion-card-content>
+      <div class="deleteButton">
+      <ion-fab-button (click)="deleteComment(comment.id)" size="small" color="danger">Usuń</ion-fab-button>
+    </div>
     </ion-card>
 <form #form="ngForm" (ngSubmit)="addComment(form)">
     <ion-item>
-      <ion-label position="floating">Treść komentarza</ion-label>
+      <ion-label position="floating">Dodaj komentarz</ion-label>
       <ion-textarea name="newComment" [(ngModel)]="newComment" type="text" ngModel required></ion-textarea>
       <ion-button type="submit">Dodaj</ion-button>
     </ion-item>

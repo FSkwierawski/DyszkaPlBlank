@@ -22,6 +22,7 @@ export class OfferScreenPage implements OnInit {
   public offers = [];
   public currentOfferPage: number;
   public maxOfferPage: number;
+  public tags: string;
 
 
   constructor(
@@ -67,4 +68,16 @@ export class OfferScreenPage implements OnInit {
     this.router.navigateByUrl('offer-creator');
   }
 
-}
+  getPagedByTags() {
+    let tagArray = this.tags.split(',');
+    this.offersrvice.getPaged(1, null, tagArray).subscribe((offers: PagedResult<Offer>)  => {
+      this.offers = (offers.items);
+      this.currentOfferPage = offers.currentPage;
+      this.maxOfferPage = offers.pagesCount;
+      console.log(this.offers);
+    });
+    if (tagArray[0] === '') {
+      this.loadData(1);
+    }
+
+}}

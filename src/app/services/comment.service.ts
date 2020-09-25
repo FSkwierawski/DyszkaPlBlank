@@ -5,7 +5,7 @@ import { IdentityService } from './identity.service';
 
 @Injectable()
 export class CommentService {
-  private commentsUrl = `https://localhost:5001/api/comments`;
+  private commentsUrl = `https://localhost:5001/api/comments/`;
 
   constructor(
       private httpClient: HttpClient,
@@ -31,25 +31,23 @@ export class CommentService {
         Authorization: `Bearer ${this.identityService.getAccesToken()}`
     });
 
-    return this.httpClient.post(this.commentsUrl, comment, {headers}).subscribe(
+    return this.httpClient.post(this.commentsUrl, comment, {headers}).pipe(
       map((result) => {
+        console.log('dodanie kom');
         return result;
       }),
       catchError((error) => {
+        console.log('błąd dodania kom');
         return error;
       })
     );
   }
 
   public deleteComment(id: string) {
-    return this.httpClient.delete(this.commentsUrl + id).pipe(
-      map((result) => {
-        return result;
-      }),
-      catchError((error) => {
-        return error;
-      })
-    );
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.identityService.getAccesToken()}`
+    });
+    return this.httpClient.delete(this.commentsUrl + id, {headers});
   }
 
   public setToPositive(id: string) {
