@@ -7,14 +7,30 @@
 <ion-content color="primary">
   <ion-list>
     <ion-card *ngFor="let message of messages">
-      <div class="title">
+      <div
+        [class.owner]="message.authorUserName == owner"
+        [class.notOwner]="message.authorUserName != owner"
+      >
         <ion-card-title>
-          <h3>{{message.authorUserName}}</h3>
+          <h3>{{ message.authorUserName }}</h3>
         </ion-card-title>
       </div>
       <ion-card-content>
-        <p>{{message.text}}</p>
+        <p>{{ message.text }}</p>
       </ion-card-content>
     </ion-card>
   </ion-list>
+  <form #form="ngForm" (ngSubmit)="addMessage(form)">
+    <ion-item>
+      <ion-label position="floating">Napisz wiadomość</ion-label>
+      <ion-textarea
+        name="newMessage"
+        [(ngModel)]="newMessage"
+        type="text"
+        ngModel
+        required
+      ></ion-textarea>
+      <ion-button type="submit">Wyślij</ion-button>
+    </ion-item>
+  </form>
 </ion-content>

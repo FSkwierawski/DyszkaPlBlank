@@ -1,3 +1,4 @@
+import { ChatComponent } from './chat/chat.component';
 import { MessageService } from './../services/message.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -17,6 +18,6 @@ import { MessageScreenPage } from './message-screen.page';
     MessageScreenPageRoutingModule
   ],
   providers: [MessageService],
-  declarations: [MessageScreenPage]
+  declarations: [MessageScreenPage, ChatComponent]
 })
 export class MessageScreenPageModule {}

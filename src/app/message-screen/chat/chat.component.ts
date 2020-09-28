@@ -1,3 +1,4 @@
+import { IdentityService } from './../../services/identity.service';
 import { Message } from './../../model/Message';
 import { BehaviorSubject } from 'rxjs';
 import { MessageService } from './../../services/message.service';
@@ -12,21 +13,41 @@ import { Component, OnInit } from '@angular/core';
 export class ChatComponent implements OnInit {
   messages$ = new BehaviorSubject<Message[]>([]);
   messages: Message[];
+  owner: string;
+  newMessage: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private identityService: IdentityService
   ) {
-    this.messages$.subscribe(messages => {
+    this.messages$.subscribe((messages) => {
       this.messages = messages;
     });
+    this.owner = this.identityService.currentUser$.value;
   }
 
   ngOnInit() {
-    const username = this.activatedRoute.snapshot.paramMap.get('id');
-    this.messageService.getMessages(1, username).subscribe((messages: Message[]) => {
-      this.messages$.next(messages['items']);
-      console.log(this.messages$.value);
+    const username = this.activatedRoute.snapshot.paramMap.get("id");
+    this.messageService
+      .getMessages(1, username)
+      .subscribe((messages: Message[]) => {
+        this.messages$.next(messages["items"]);
+        console.log(this.messages$.value);
+      });
+  }
+  addMessage() {
+    this.messageService.addMessage({
+      text: this.newMessage,
+      receiverUserName: this.activatedRoute.snapshot.paramMap.get("id")
+    }).subscribe(() => {
+      const username = this.activatedRoute.snapshot.paramMap.get("id");
+      this.messageService
+        .getMessages(1, username)
+        .subscribe((messages: Message[]) => {
+          this.messages$.next(messages["items"]);
+          console.log(this.messages$.value);
+        });
     });
   }
 }
