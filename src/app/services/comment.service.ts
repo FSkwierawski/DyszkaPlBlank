@@ -51,11 +51,16 @@ export class CommentService {
   }
 
   public setToPositive(id: string) {
-    return this.httpClient.put(this.commentsUrl + id + "/toPositive", {}).pipe(
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.identityService.getAccesToken()}`
+    });
+    return this.httpClient.put(this.commentsUrl + id + "/toPositive", {}, {headers}).pipe(
       map((result) => {
+        console.log('zmiana na pozytywny');
         return result;
       }),
       catchError((error) => {
+        console.log('błąd');
         return error;
       })
     );

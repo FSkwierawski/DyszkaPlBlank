@@ -1,3 +1,4 @@
+import { IdentityService } from './../../services/identity.service';
 import { CommentToAdd } from './../../interfaces/CommentToAdd';
 import { PagedResult } from './../../model/Paged-result';
 import { CommentService } from './../../services/comment.service';
@@ -22,15 +23,18 @@ export class OfferComponent implements OnInit {
   public loading = true;
   public comments: Comment[] = [];
   newComment: string;
+  public owner: string;
 
 
   constructor(
     private router: Router,
     private offerService: OfferService,
     private activatedRoute: ActivatedRoute,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private identityService: IdentityService
   )
   {
+    this.owner = identityService.currentUser$.value;
   }
 
   ngOnInit() {
@@ -77,6 +81,12 @@ export class OfferComponent implements OnInit {
 
   deleteComment(id: string) {
     this.commentService.deleteComment(id).subscribe(() => {
+      this.getComments(1);
+    });
+  }
+
+  setToPositive(id: string) {
+    this.commentService.setToPositive(id).subscribe(() => {
       this.getComments(1);
     });
   }
