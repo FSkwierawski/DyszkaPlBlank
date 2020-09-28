@@ -44,6 +44,8 @@ export class AppComponent {
       this.currentUser = currentUser;
     });
     this.router.navigateByUrl(`/user-profile/${this.currentUser}`);
-
+  }
+  openMessages() {
+    this.router.navigateByUrl(`/message-screen`);
   }
 }

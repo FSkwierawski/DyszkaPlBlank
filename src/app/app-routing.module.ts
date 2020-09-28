@@ -40,6 +40,10 @@ const routes: Routes = [
     path: 'user-offers',
     loadChildren: () => import('./user-offers/user-offers.module').then( m => m.UserOffersPageModule)
   },
+  {
+    path: 'message-screen',
+    loadChildren: () => import('./message-screen/message-screen.module').then( m => m.MessageScreenPageModule)
+  },
 ];
 
 @NgModule({

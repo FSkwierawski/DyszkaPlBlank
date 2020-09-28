@@ -14,9 +14,9 @@
             <ion-icon name="globe" slot="start"></ion-icon>
             <ion-label>Szukaj ofert</ion-label>
           </ion-item>
-          <ion-item>
-            <ion-icon name="people" slot="start"></ion-icon>
-            <ion-label>Szukaj użytkowników</ion-label>
+          <ion-item (click)="openMessages()">
+            <ion-icon name="chatbubbles-outline" slot="start"></ion-icon>
+            <ion-label>Wiadomości</ion-label>
           </ion-item>
           <ion-item (click)="openCurrentUserProfile()">
             <ion-icon name="build" slot="start"></ion-icon>

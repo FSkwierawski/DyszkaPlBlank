@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>message-screen</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="primary">
+  <ion-list>
+    <ion-card (click)="openConversation(message.authorUserName)" *ngFor="let message of inbox">
+      <div class="title">
+        <ion-card-title>
+          <h3>{{message.authorUserName}}</h3>
+        </ion-card-title>
+      </div>
+      <ion-card-content>
+        <p>{{message.text}}</p>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+</ion-content>
