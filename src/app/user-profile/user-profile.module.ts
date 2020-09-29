@@ -1,3 +1,4 @@
+import { CommentService } from './../services/comment.service';
 import { UserService } from './../services/user.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -16,7 +17,7 @@ import { UserProfilePage } from './user-profile.page';
     IonicModule,
     UserProfilePageRoutingModule
   ],
-  providers: [UserService],
+  providers: [UserService, CommentService],
   declarations: [UserProfilePage]
 })
 export class UserProfilePageModule {}

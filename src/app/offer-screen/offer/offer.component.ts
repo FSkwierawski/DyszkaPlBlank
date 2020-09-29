@@ -58,7 +58,6 @@ export class OfferComponent implements OnInit {
         comments.push(new Comment(comment));
       });
       this.comments$.next(comments);
-      console.log('dupa');
       console.log(comments);
     });
   }
