@@ -1,0 +1,49 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button auto-hide="false" menu="side-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Zamówienia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-card *ngFor="let order of orders">
+      <ion-card-header>
+        {{ order.offerTitle }}
+        </ion-card-header>
+      <ion-card-subtitle>{{
+        order.createdDate | date: "dd.MM.yyyy HH:mm"
+      }}</ion-card-subtitle>
+      <ion-card-content>{{ order.offerAuthorUserName }}</ion-card-content>
+      <div class="deleteButton">
+        <ion-item>
+          <div>
+            <ion-fab-button
+              (click)="setToPositive(comment.id)"
+              size="small"
+              color="success"
+              ><i class="fa fa-repeat"></i
+            ></ion-fab-button>
+          </div>
+          <div>
+            <ion-fab-button
+              (click)="deleteComment(comment.id)"
+              size="small"
+              color="danger"
+              >Usuń</ion-fab-button
+            >
+          </div>
+        </ion-item>
+      </div>
+    </ion-card>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button expand="block" (click)="presentActionSheet()">Opcje wyświetlania</ion-button>
+  </ion-toolbar>
+</ion-footer>

@@ -48,4 +48,8 @@ export class AppComponent {
   openMessages() {
     this.router.navigateByUrl(`/message-screen`);
   }
+
+  openOrders() {
+    this.router.navigateByUrl(`/orders-screen`);
+  }
 }

@@ -23,6 +23,7 @@ export class ChatComponent implements OnInit {
   ) {
     this.messages$.subscribe((messages) => {
       this.messages = messages;
+      this.messages.reverse();
     });
     this.owner = this.identityService.currentUser$.value;
   }

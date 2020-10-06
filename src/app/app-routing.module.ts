@@ -44,6 +44,10 @@ const routes: Routes = [
     path: 'message-screen',
     loadChildren: () => import('./message-screen/message-screen.module').then( m => m.MessageScreenPageModule)
   },
+  {
+    path: 'orders-screen',
+    loadChildren: () => import('./orders-screen/orders-screen.module').then( m => m.OrdersScreenPageModule)
+  },
 ];
 
 @NgModule({
