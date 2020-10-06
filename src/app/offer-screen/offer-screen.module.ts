@@ -1,3 +1,4 @@
+import { PayPal } from '@ionic-native/paypal/ngx';
 import { CommentService } from './../services/comment.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -17,7 +18,7 @@ import { OfferComponent } from './offer/offer.component';
     IonicModule,
     OfferScreenPageRoutingModule
   ],
-  providers: [CommentService],
+  providers: [CommentService, PayPal],
   declarations: [OfferScreenPage, OfferComponent]
 })
 export class OfferScreenPageModule {}

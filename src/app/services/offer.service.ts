@@ -68,4 +68,12 @@ export class OfferService {
       })
     );
   }
+
+  public orderOffer(id: string) {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.identityService.getAccesToken()}`
+  });
+    this.httpClient.post(`${this.offerUrl}${id}/order`, {}, {headers}).
+      subscribe(() => console.log('złożono zamówienie'));
+  }
 }

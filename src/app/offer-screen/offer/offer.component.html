@@ -16,86 +16,102 @@
   <h3>Ładowanie...</h3>
 </div>
 
-<ion-content fullscreen color="primary" *ngIf="!loading">
-  <img src="{{ tempOffer.image }}" />
-  <ion-item>
-    <ion-thumbnail slot="start"
-      ><ion-icon size="large" name="person-outline"></ion-icon
-    ></ion-thumbnail>
-    <ion-label>
-      <h3>Właściciel oferty:</h3>
-      <p>
-        <a (click)="openOwnerProfile()">{{ tempOffer.authorUserName }}</a>
-      </p>
-    </ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-thumbnail slot="start"
-      ><ion-icon size="large" name="wallet-outline"></ion-icon
-    ></ion-thumbnail>
-    <ion-label>
-      <h3>Cena usługi:</h3>
-      <p>{{ tempOffer.price }} zł</p>
-    </ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-thumbnail slot="start"
-      ><ion-icon size="large" name="albums-outline"></ion-icon
-    ></ion-thumbnail>
-    <ion-label>
-      <h3>Tagi:</h3>
-      <p>{{ tempOffer.tags }}</p>
-    </ion-label>
-  </ion-item>
-  <ion-card>
-    <ion-card-header>Opis:</ion-card-header>
-    <ion-card-content>{{ tempOffer.shortDescription }}</ion-card-content>
-  </ion-card>
 
-  <div>
-    <ion-card *ngFor="let comment of comments">
-      <ion-card-header
-        [class.pos]="comment.isPositive"
-        [class.neg]="!comment.isPositive"
-        >{{ comment.authorUserName }}</ion-card-header
-      >
-      <ion-card-subtitle>{{
-        comment.createdDate | date: "dd.MM.yyyy"
-      }}</ion-card-subtitle>
-      <ion-card-content>{{ comment.text }}</ion-card-content>
-      <div class="deleteButton">
-        <ion-item>
-          <div *ngIf="owner == comment.authorUserName && comment.isPositive == false">
-            <ion-fab-button
-              (click)="setToPositive(comment.id)"
-              size="small"
-              color="success"
-              ><i class="fa fa-repeat"></i
-            ></ion-fab-button>
-          </div>
-          <div *ngIf="owner == comment.authorUserName">
-            <ion-fab-button
-              (click)="deleteComment(comment.id)"
-              size="small"
-              color="danger"
-              >Usuń</ion-fab-button
-            >
-          </div>
-        </ion-item>
-      </div>
-    </ion-card>
-  </div>
-  <form #form="ngForm" (ngSubmit)="addComment(form)">
+  <ion-content fullscreen color="primary" *ngIf="!loading">
+    <div *ngIf="!loading">
+    <img src="{{ tempOffer.image }}" />
     <ion-item>
-      <ion-label position="floating">Dodaj komentarz</ion-label>
-      <ion-textarea
-        name="newComment"
-        [(ngModel)]="newComment"
-        type="text"
-        ngModel
-        required
-      ></ion-textarea>
-      <ion-button type="submit">Dodaj</ion-button>
+      <ion-thumbnail slot="start"
+        ><ion-icon size="large" name="person-outline"></ion-icon
+      ></ion-thumbnail>
+      <ion-label>
+        <h3>Właściciel oferty:</h3>
+        <p>
+          <a (click)="openOwnerProfile()">{{ tempOffer.authorUserName }}</a>
+        </p>
+      </ion-label>
     </ion-item>
-  </form>
-</ion-content>
+    <ion-item>
+      <ion-thumbnail slot="start"
+        ><ion-icon size="large" name="wallet-outline"></ion-icon
+      ></ion-thumbnail>
+      <ion-label>
+        <h3>Cena usługi:</h3>
+        <p>{{ tempOffer.price }} zł</p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-thumbnail slot="start"
+        ><ion-icon size="large" name="albums-outline"></ion-icon
+      ></ion-thumbnail>
+      <ion-label>
+        <h3>Tagi:</h3>
+        <p>{{ tempOffer.tags }}</p>
+      </ion-label>
+    </ion-item>
+    <ion-card>
+      <ion-card-header>Opis:</ion-card-header>
+      <ion-card-content>{{ tempOffer.shortDescription }}</ion-card-content>
+    </ion-card>
+
+
+    <ion-button (click)="initializePayPal()">Zamów usługę</ion-button>
+
+    <div>
+      <ion-card *ngFor="let comment of comments">
+        <ion-card-header
+          [class.pos]="comment.isPositive"
+          [class.neg]="!comment.isPositive"
+          >{{ comment.authorUserName }}</ion-card-header
+        >
+        <ion-card-subtitle>{{
+          comment.createdDate | date: "dd.MM.yyyy"
+        }}</ion-card-subtitle>
+        <ion-card-content>{{ comment.text }}</ion-card-content>
+        <div class="deleteButton">
+          <ion-item>
+            <div
+              *ngIf="
+                owner == comment.authorUserName && comment.isPositive == false
+              "
+            >
+              <ion-fab-button
+                (click)="setToPositive(comment.id)"
+                size="small"
+                color="success"
+                ><i class="fa fa-repeat"></i
+              ></ion-fab-button>
+            </div>
+            <div *ngIf="owner == comment.authorUserName">
+              <ion-fab-button
+                (click)="deleteComment(comment.id)"
+                size="small"
+                color="danger"
+                >Usuń</ion-fab-button
+              >
+            </div>
+          </ion-item>
+        </div>
+      </ion-card>
+    </div>
+    <form #form="ngForm" (ngSubmit)="addComment(form)">
+      <ion-item>
+        <ion-label position="floating">Dodaj komentarz</ion-label>
+        <ion-textarea
+          name="newComment"
+          [(ngModel)]="newComment"
+          type="text"
+          ngModel
+          required
+        ></ion-textarea>
+        <ion-button type="submit">Dodaj</ion-button>
+      </ion-item>
+    </form>
+  </div>
+  </ion-content>
+  <div #paypal></div>
+
+  
+
+
+
