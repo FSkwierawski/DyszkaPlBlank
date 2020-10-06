@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { OrderService } from './../services/order.service';
 import { BehaviorSubject } from 'rxjs';
 import { Component, getDebugNode, OnInit } from '@angular/core';
@@ -12,7 +13,8 @@ import { Order } from '../model/Order';
 export class OrdersScreenPage implements OnInit {
   constructor(
     public actionSheetController: ActionSheetController,
-    private orderService: OrderService) {
+    private orderService: OrderService,
+    private router: Router) {
       this.orders$.subscribe(orders => {
         this.orders = orders['items'];
       });
@@ -20,8 +22,11 @@ export class OrdersScreenPage implements OnInit {
 
   orders$ = new BehaviorSubject<Order[]>([]);
   public orders: Order[];
+  doneAble: boolean;
+  title = '';
 
   ngOnInit() {
+    this.getOrdered();
   }
 
   async presentActionSheet() {
@@ -60,6 +65,8 @@ export class OrdersScreenPage implements OnInit {
     this.orderService.getCreatedByCurrentUser(1).subscribe((orders: Order[]) => {
       this.orders$.next(orders);
       console.log(this.orders);
+      this.doneAble = true;
+      this.title = 'Zlecone';
     });
   }
 
@@ -67,6 +74,8 @@ export class OrdersScreenPage implements OnInit {
     this.orderService.getOrdersForCurrentUserOffers(1, false).subscribe((orders: Order[]) => {
       this.orders$.next(orders);
       console.log(this.orders);
+      this.doneAble = false;
+      this.title = 'Realizowane';
     });
   }
 
@@ -74,10 +83,23 @@ export class OrdersScreenPage implements OnInit {
     this.orderService.getOrdersForCurrentUserOffers(1, true).subscribe((orders: Order[]) => {
       this.orders$.next(orders);
       console.log(this.orders);
+      this.doneAble = false;
+      this.title = 'Zrealizowane';
     });
   }
 
-  setToDone() {
-    this.orderService.markAsDone(id).subscribe
+  setToDone(id: string) {
+    this.orderService.markAsDone(id).subscribe(result => {
+      console.log('order set to done');
+      this.getOrdered();
+    });
+  }
+
+  startChat(username: string) {
+    this.router.navigateByUrl(`message-screen/${username}`);
+  }
+
+  goToOfferDetails(id: string) {
+    this.router.navigateByUrl(`offer-screen/${id}`);
   }
 }

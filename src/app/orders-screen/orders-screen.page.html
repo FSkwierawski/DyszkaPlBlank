@@ -1,39 +1,51 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
 
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button auto-hide="false" menu="side-menu"></ion-menu-button>
     </ion-buttons>
-    <ion-title>Zamówienia</ion-title>
+    <ion-title>{{title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div>
     <ion-card *ngFor="let order of orders">
-      <ion-card-header>
+      <ion-card-header color="primary">
         {{ order.offerTitle }}
         </ion-card-header>
       <ion-card-subtitle>{{
         order.createdDate | date: "dd.MM.yyyy HH:mm"
       }}</ion-card-subtitle>
-      <ion-card-content>{{ order.offerAuthorUserName }}</ion-card-content>
-      <div class="deleteButton">
+      <ion-card-content>{{ order.authorUserName }}</ion-card-content>
+      <div class="buttons">
         <ion-item>
-          <div>
+          <div *ngIf="doneAble">
             <ion-fab-button
-              (click)="setToPositive(comment.id)"
+              (click)="setToDone(order.id)"
               size="small"
-              color="success"
-              ><i class="fa fa-repeat"></i
+              color="primary"
+              ><i class="fa fa-check"></i
             ></ion-fab-button>
           </div>
           <div>
             <ion-fab-button
-              (click)="deleteComment(comment.id)"
+              (click)="startChat(order.authorUserName)"
               size="small"
-              color="danger"
-              >Usuń</ion-fab-button
+              color="primary"
+              ><i class="fa fa-envelope"></i></ion-fab-button
+            >
+          </div>
+          <div>
+            <ion-fab-button
+              (click)="goToOfferDetails(order.offerId)"
+              size="small"
+              color="primary"
+              ><i class="fa fa-info-circle"></i></ion-fab-button
             >
           </div>
         </ion-item>

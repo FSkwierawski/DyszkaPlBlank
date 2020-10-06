@@ -28,12 +28,13 @@ export class OrderService {
   }
 
   public markAsDone(id: string) {
-    return this.httpClient.post(`${this.ordersUrl}${id}/done`, {}).pipe(map((result) => {
+    const headers = this.headers;
+    return this.httpClient.post(`${this.ordersUrl}${id}/done`, {}, {headers}).pipe(map((result) => {
         console.log('ok');
         return result;
       }),
       catchError((error) => {
-        console.log('ok');
+        console.log('error');
         return error;
       }));
   }
