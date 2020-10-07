@@ -1,3 +1,5 @@
+import { AlertController } from '@ionic/angular';
+import { Helpers } from './../common/helpers';
 import { OfferService } from './../services/offer.service';
 import { Offer } from './../model/Offer';
 import { Component, OnInit } from '@angular/core';
@@ -17,21 +19,26 @@ export class OfferCreatorPage implements OnInit {
     image: new FormControl('', [Validators.required]),
     title: new FormControl('', [Validators.required, Validators.maxLength(30)]),
     price: new FormControl('', [Validators.required, Validators.min(10)]),
-    tags: new FormControl('', [Validators.required]),
+    tags: new FormControl('', [Validators.required, Validators.pattern(Helpers.tagsPattern)]),
     shortDescription: new FormControl('', [Validators.required, Validators.maxLength(160)]),
     description: new FormControl('', [Validators.required, Validators.maxLength(1000)])
   });
 
   constructor(
     private formModule: FormsModule,
-    private offerservice: OfferService) { }
+    private offerservice: OfferService,
+    private alertController: AlertController) { }
 
   ngOnInit() {
   }
 
   onSubmit() {
-    this.offerservice.addOffer(this.createOfferfromForm());
-    
+    if (this.offerCreator.valid) {
+      this.addingOfferAlert();
+    }
+    else {
+
+    }
   }
 
   transformImage(e) {
@@ -52,5 +59,39 @@ export class OfferCreatorPage implements OnInit {
     data.image = this.selectedImage;
     data.tags = data.tags.split(',');
     return data;
+  }
+
+  async addingOfferAlert() {
+    const alert = await this.alertController.create({
+      header: 'Uwaga!',
+      subHeader: 'Czy na pewno chcesz dodać ofertę?',
+      message: 'Raz dodanej oferty nie można edytować',
+      buttons: [
+        {
+          text: 'Tak',
+          handler: () => {
+            this.offerservice.addOffer(this.createOfferfromForm());
+          }
+        },
+        {
+          text: 'Nie',
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async validationAlert() {
+    const alert = await this.alertController.create({
+      header: 'Uwaga!',
+      subHeader: 'wproawdzone dane oferty są niepoprawne',
+      message: 'Wszystkie dane muszą być podane, tagi wpisywać po przecinku bez spacji, cena oferty conajmniej 10zł',
+      buttons: [
+        {
+          text: 'Ok',
+        },
+      ]
+    });
+    await alert.present();
   }
 }
