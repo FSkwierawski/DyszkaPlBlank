@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Profile-creator</ion-title>
+    <ion-title>Edycja danych użytkownika</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content color="primary">
@@ -23,7 +23,7 @@
       </ion-item>
       <ion-item>
         <ion-label>Nazwa użytkownika: </ion-label>
-        <ion-input formControlName="userName" type="text"></ion-input>
+        <ion-input [disabled]="true" formControlName="userName" type="text"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>numer telefonu: </ion-label>

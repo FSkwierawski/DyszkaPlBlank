@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { UserService } from './../services/user.service';
 import { User } from './../model/User';
 import { IdentityService } from './../services/identity.service';
-import { FormsModule, FormGroup, FormControl } from '@angular/forms';
+import { FormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -21,8 +21,8 @@ export class EditProfilePage implements OnInit {
     profileImage: new FormControl(''),
     userName: new FormControl(''),
     telephoneNumber: new FormControl(''),
-    email: new FormControl(''),
-    description: new FormControl('')
+    email: new FormControl('', [Validators.email]),
+    description: new FormControl('', Validators.maxLength(500))
   });
 
   constructor(
