@@ -2,6 +2,7 @@ import { IdentityService } from './../services/identity.service';
 
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class LoginScreenPage implements OnInit {
 
   constructor(
     private router: Router,
-    private identityService: IdentityService
+    private identityService: IdentityService,
+    public alertController: AlertController
     ) { }
 
   ngOnInit() {
@@ -32,7 +34,6 @@ export class LoginScreenPage implements OnInit {
 
   login() {
     this.identityService.logIn(this.username, this.password);
-    this.router.navigateByUrl('/offer-screen');
   }
 
 }

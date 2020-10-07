@@ -1,3 +1,4 @@
+import { AlertController } from '@ionic/angular';
 import { UserBuilder } from './../model/User.builder';
 import { Router } from '@angular/router';
 import { Config } from './../Config';
@@ -23,7 +24,8 @@ export class IdentityService {
 
   constructor(
     private httpClient: HttpClient,
-    private router: Router
+    private router: Router,
+    private alertController: AlertController
   ) {
     this.accessToken$.subscribe(token => {
       localStorage.setItem(Config.localStorageAccessTokenKey, token);
@@ -63,8 +65,11 @@ public logIn(username: string, password: string) {
     this.accessToken$.next(response['access_token']);
     this.refreshToken$.next(response['refresh_token']);
     console.log(this.user$);
+    this.router.navigateByUrl('/offer-screen');
   }, error => {
     this.accessToken$.next('');
+    this.loginErrorAlert();
+
   });
 }
 
@@ -77,6 +82,22 @@ public logout() {
 
 public getAccesToken() {
   return this.accessToken$.value;
+}
+
+async loginErrorAlert() {
+  const alert = await this.alertController.create({
+    header: 'Błąd!',
+    message: 'Coś poszło nie tak, spróbuj ponownie',
+    buttons: [
+      {
+        text: 'Ok',
+        handler: () => {
+          this.logout();
+        }
+      }
+    ]
+  });
+  await alert.present();
 }
 
 

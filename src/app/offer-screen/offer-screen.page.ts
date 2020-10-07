@@ -1,3 +1,4 @@
+import { IdentityService } from './../services/identity.service';
 import { Config } from './../Config';
 import { Router } from '@angular/router';
 import { PagedResult } from './../model/Paged-result';
@@ -6,7 +7,7 @@ import { Offer } from './../model/Offer';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonInfiniteScroll } from '@ionic/angular';
+import { IonInfiniteScroll, AlertController } from '@ionic/angular';
 
 
 
@@ -28,12 +29,16 @@ export class OfferScreenPage implements OnInit {
   constructor(
     private http: HttpClient,
     private offersrvice: OfferService,
-    private router: Router) {
+    private router: Router,
+    private alertController: AlertController,
+    private identityService: IdentityService) {
     this.loadData(1);
   }
 
   ngOnInit() {
-
+    if (this.identityService.user$.value.isBanned === true) {
+      this.presentBanAlert();
+    }
   }
 
   loadData(page: number) {
@@ -79,5 +84,22 @@ export class OfferScreenPage implements OnInit {
     if (tagArray[0] === '') {
       this.loadData(1);
     }
+  }
 
-}}
+  async presentBanAlert() {
+    const alert = await this.alertController.create({
+      header: 'Uwaga!',
+      message: 'Użytkownik jest zbanowany',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            this.identityService.logout();
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+}

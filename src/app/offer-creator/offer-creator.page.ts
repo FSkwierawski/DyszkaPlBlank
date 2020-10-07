@@ -15,11 +15,11 @@ export class OfferCreatorPage implements OnInit {
 
   offerCreator = new FormGroup({
     image: new FormControl('', [Validators.required]),
-    title: new FormControl('', [Validators.required]),
-    price: new FormControl('', [Validators.required]),
+    title: new FormControl('', [Validators.required, Validators.maxLength(30)]),
+    price: new FormControl('', [Validators.required, Validators.min(10)]),
     tags: new FormControl('', [Validators.required]),
-    shortDescription: new FormControl('', [Validators.required]),
-    description: new FormControl('', [Validators.required])
+    shortDescription: new FormControl('', [Validators.required, Validators.maxLength(160)]),
+    description: new FormControl('', [Validators.required, Validators.maxLength(1000)])
   });
 
   constructor(

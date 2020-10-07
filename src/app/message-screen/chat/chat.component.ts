@@ -15,6 +15,7 @@ export class ChatComponent implements OnInit {
   messages: Message[];
   owner: string;
   newMessage: string;
+  addressee: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -35,6 +36,7 @@ export class ChatComponent implements OnInit {
       .subscribe((messages: Message[]) => {
         this.messages$.next(messages["items"]);
         console.log(this.messages$.value);
+        this.addressee = username;
       });
   }
   addMessage() {
