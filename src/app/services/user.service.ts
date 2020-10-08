@@ -32,5 +32,12 @@ public getUserIdentityData(username: string) {
     return this.httpClient.get(`${this.url}identity/${username}`);
 }
 
+public deleteUser(id: string) {
+    const headers = new HttpHeaders({
+        Authorization: `Bearer ${this.identityService.getAccesToken()}`
+    });
+    return this.httpClient.delete(`${this.url}${id}`, {headers});
+}
+
 }
 

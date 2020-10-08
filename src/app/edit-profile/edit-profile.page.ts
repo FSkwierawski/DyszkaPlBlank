@@ -1,3 +1,4 @@
+import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { UserBuilder } from './../model/User.builder';
 import { BehaviorSubject } from 'rxjs';
@@ -29,7 +30,8 @@ export class EditProfilePage implements OnInit {
     private formsModule: FormsModule,
     private identityService: IdentityService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private alertController: AlertController
     )
     {
 
@@ -44,12 +46,7 @@ export class EditProfilePage implements OnInit {
   }
 
   onSubmit()  {
-    const user = this.createUserFromForm();
-    console.log(user.profileImage);
-    this.userService.editCurrentUser(user).subscribe(response => {
-      console.log(response);
-      this.router.navigateByUrl(`user-profile/${this.identityService.currentUser$.value}`);
-    });
+    this.editAlert();
   }
 
   createUserFromForm() {
@@ -74,6 +71,30 @@ export class EditProfilePage implements OnInit {
     reader.onload = () => {
       this.selectedImage = reader.result.toString();
     };
+  }
+
+  async editAlert() {
+    const alert = await this.alertController.create({
+      header: 'Uwaga!',
+      message: 'Czy na pewno chcesz zmienić swoje dane?',
+      buttons: [
+        {
+          text: 'Tak',
+          handler: () => {
+            const user = this.createUserFromForm();
+            console.log(user.profileImage);
+            this.userService.editCurrentUser(user).subscribe(response => {
+              console.log(response);
+              this.router.navigateByUrl(`user-profile/${this.identityService.currentUser$.value}`);
+            });
+          }
+        },
+        {
+          text: 'Nie',
+        }
+      ]
+    });
+    await alert.present();
   }
 
 }

@@ -1,3 +1,5 @@
+import { async } from '@angular/core/testing';
+import { AlertController } from '@ionic/angular';
 import { Comment } from './../model/Comment';
 import { CommentService } from './../services/comment.service';
 import { UserBuilder } from './../model/User.builder';
@@ -8,7 +10,6 @@ import { User } from './../model/User';
 import { BehaviorSubject } from 'rxjs';
 import { UserData } from './../interfaces/UserData';
 import { Component, OnInit } from '@angular/core';
-import { CommentToAdd } from '../interfaces/CommentToAdd';
 import { PagedResult } from '../model/Paged-result';
 
 @Component({
@@ -36,7 +37,8 @@ export class UserProfilePage implements OnInit {
     private userService: UserService,
     private identityService: IdentityService,
     private activatedroute: ActivatedRoute,
-    private commentService: CommentService)
+    private commentService: CommentService,
+    private allerController: AlertController)
     {
       this.identityService.user$.subscribe(userInfromations => {
         this.user = userInfromations;
@@ -91,17 +93,6 @@ export class UserProfilePage implements OnInit {
       console.log(comments);
     });
   }
-  // addComment() {
-  //   const id = this.activatedRoute.snapshot.paramMap.get('id');
-  //   let commentToadd: CommentToAdd = ({
-  //     text: this.newComment,
-  //     isPositive: false,
-  //     offerId: id
-  //   });
-  //   this.commentService.addComment(commentToadd).subscribe( () => {
-  //     this.getComments(1);
-  //   });
-  // }
 
   deleteComment(id: string) {
     this.commentService.deleteComment(id).subscribe(() => {
@@ -112,6 +103,44 @@ export class UserProfilePage implements OnInit {
   setToPositive(id: string) {
     this.commentService.setToPositive(id).subscribe(() => {
       this.getComments(1);
+    });
+  }
+
+  openChat() {
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    id.toString();
+    const username = this.user.userName.toString();
+    this.router.navigateByUrl(`message-screen/${username}`);
+  }
+
+  deleteAccount() {
+    this.deleteAccountAlert();
+  }
+
+  async deleteAccountAlert() {
+    const alert = await this.allerController.create({
+      header: 'Uwaga!',
+      message: 'Czy na pewno chcesz usunąć swoje konto? Niedowracalnie usunięte zostaną wszystkie zasoby związane z twoim kontem',
+      buttons: [
+        {
+          text: 'Tak',
+          handler: () => {
+            this.removeUser();
+          }
+        },
+          {
+            text: 'Nie'
+          }
+      ]
+    });
+    await alert.present();
+  }
+
+  removeUser() {
+    this.userService.deleteUser(this.identityService.user$.value.applicationId)
+    .subscribe(result => {
+      console.log('Usunięto konto');
+      this.identityService.logout();
     });
   }
 

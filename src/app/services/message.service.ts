@@ -20,7 +20,7 @@ export class MessageService {
   public getMessages(page: number, username: string) {
     const headers = this.headers;
     return this.httpClient.get(
-      `${this.messagesUrl}${page}/${this.identityService.user$.value.userName}/${username}`, {headers}
+      `${this.messagesUrl}${page}/${this.identityService.currentUser$.value}/${username}`, {headers}
     );
   }
 

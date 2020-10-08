@@ -20,7 +20,7 @@
     <ion-avatar>
       <img src="{{user.profileImage}}" />
     </ion-avatar>
-    <ion-label>{{user.userName}}</ion-label>
+    <ion-label style="font-size: 25px; padding-left: 10%;">{{user.userName}}</ion-label>
   </ion-item>
   <ion-card>
     <ion-card-header>Opis:</ion-card-header>
@@ -34,26 +34,43 @@
     <ion-label>numer telefonu:</ion-label>
     <ion-label>{{user.telephoneNumber}}</ion-label>
   </ion-item>
-  <ion-list>
-    <div *ngIf="isOwner">
-      <ion-item text-center>
-        <ion-button
-          (click)="openProfileDataeditor();"
-          slot="start"
-          size="medium"
-          >Edytuj</ion-button
-        >
-      </ion-item>
-    </div>
+
+  <ion-card>
+  <div class="buttons">
     <ion-item>
-      <ion-button
-      (click)="openUserOffers();"
-      slot="start"
-      size="medium"
-      >Oferty użytkownika</ion-button
-    >
+      <div *ngIf="isOwner">
+        <ion-fab-button
+          (click)="openProfileDataeditor();"
+          size="small"
+          color="primary"
+          ><i class="fa fa-edit"></i></ion-fab-button>
+      </div>
+      <div>
+        <ion-fab-button
+        (click)="openUserOffers();"
+        size="small"
+        color="primary"
+        ><i class="fa fa-align-justify"></i></ion-fab-button>
+      </div>
+      <div *ngIf="!isOwner">
+        <ion-fab-button
+        (click)="openChat();"
+        size="small"
+        color="primary"
+        ><i class="fa fa-envelope"></i></ion-fab-button>
+      </div>
+      <div *ngIf="isOwner">
+        <ion-fab-button
+        (click)="deleteAccount()"
+        size="small"
+        color="danger"
+        ><i class="fa fa-user-times"></i></ion-fab-button>
+      </div>
     </ion-item>
-  </ion-list>
+  </div>
+</ion-card>
+  <ion-item>Komentarze:</ion-item>
+  
   <div>
     <ion-card *ngFor="let comment of comments">
       <ion-card-header
@@ -87,17 +104,4 @@
       </div>
     </ion-card>
   </div>
-  <!-- <form #form="ngForm" (ngSubmit)="addComment(form)">
-    <ion-item>
-      <ion-label position="floating">Dodaj komentarz</ion-label>
-      <ion-textarea
-        name="newComment"
-        [(ngModel)]="newComment"
-        type="text"
-        ngModel
-        required
-      ></ion-textarea>
-      <ion-button type="submit">Dodaj</ion-button>
-    </ion-item>
-  </form> -->
 </ion-content>

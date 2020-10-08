@@ -50,7 +50,7 @@ export class OfferComponent implements OnInit {
       // this.offerDetails$.next(offerDetails);
       this.tempOffer = new Offer(offerDetails);
       this.getComments(1);
-      this.renderPayPal();
+      // this.renderPayPal();
       this.loading = false;
     });
   }
