@@ -120,7 +120,7 @@ export class UserProfilePage implements OnInit {
   async deleteAccountAlert() {
     const alert = await this.allerController.create({
       header: 'Uwaga!',
-      message: 'Czy na pewno chcesz usunąć swoje konto? Niedowracalnie usunięte zostaną wszystkie zasoby związane z twoim kontem',
+      message: 'Czy na pewno chcesz usunąć swoje konto?',
       buttons: [
         {
           text: 'Tak',
