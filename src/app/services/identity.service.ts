@@ -45,6 +45,8 @@ public register(username: string, password: string, confirmPassword: string) {
       ConfirmPassword: confirmPassword
     }).subscribe(response => {
       console.log(response);
+    }, error => {
+      this.registrationAlert();
     });
 }
 
@@ -100,6 +102,19 @@ async loginErrorAlert() {
   await alert.present();
 }
 
+  async registrationAlert() {
+    const alert = await this.alertController.create({
+      header: 'Uwaga!',
+      subHeader: 'Błąd rejestacji',
+      message: 'hasło musi mieć conajmniej 6 znaków i zawierać conajmniej 1 cyfrę',
+      buttons: [
+        {
+          text: 'Ok',
+        },
+      ]
+    });
+    await alert.present();
+  }
 
 
 }
