@@ -21,8 +21,8 @@
   </ion-item>
 </form>
 
-  <div *ngFor="let offer of offers">
-    <ion-card (click)="openOfferDetails(offer);">
+  <div *ngFor="let offer of offers; let i = index">
+    <ion-card [class.promoted]="isPromoted && i === 0" (click)="openOfferDetails(offer);">
       <img src="{{offer.image}}"/>
       <ion-card-header>
         <ion-card-title>{{offer.title}}</ion-card-title>

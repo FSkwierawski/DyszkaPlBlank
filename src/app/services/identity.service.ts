@@ -44,7 +44,7 @@ public register(username: string, password: string, confirmPassword: string) {
       Password: password,
       ConfirmPassword: confirmPassword
     }).subscribe(response => {
-      console.log(response);
+      this.registrationSucceed();
     }, error => {
       this.registrationAlert();
     });
@@ -107,6 +107,20 @@ async loginErrorAlert() {
       header: 'Uwaga!',
       subHeader: 'Błąd rejestacji',
       message: 'hasło musi mieć conajmniej 6 znaków i zawierać conajmniej 1 cyfrę',
+      buttons: [
+        {
+          text: 'Ok',
+        },
+      ]
+    });
+    await alert.present();
+  }
+
+  async registrationSucceed() {
+    const alert = await this.alertController.create({
+      header: 'Witaj!',
+      subHeader: 'Twoje konto zostało utworzone',
+      message: 'Możesz teraz zalogować się do serwisu dyszkaPl!',
       buttons: [
         {
           text: 'Ok',

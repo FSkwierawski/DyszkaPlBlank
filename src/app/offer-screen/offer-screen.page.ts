@@ -24,6 +24,7 @@ export class OfferScreenPage implements OnInit {
   public currentOfferPage: number;
   public maxOfferPage: number;
   public tags: string;
+  public isPromoted = false;
 
 
   constructor(
@@ -74,9 +75,16 @@ export class OfferScreenPage implements OnInit {
   }
 
   getPagedByTags() {
+    this.isPromoted = false;
     let tagArray = this.tags.split(',');
     this.offersrvice.getPaged(1, null, tagArray).subscribe((offers: PagedResult<Offer>)  => {
-      this.offers = (offers.items);
+      let tempOffers = (offers.items);
+      if (tempOffers.filter(o => o.id === tempOffers[0].id).length > 1) {
+        let indexToCut = tempOffers.indexOf(tempOffers.filter(o => o.id === tempOffers[0].id)[1]);
+        tempOffers.splice(indexToCut, 1);
+        this.isPromoted = true;
+      }
+      this.offers = tempOffers;
       this.currentOfferPage = offers.currentPage;
       this.maxOfferPage = offers.pagesCount;
       console.log(this.offers);
