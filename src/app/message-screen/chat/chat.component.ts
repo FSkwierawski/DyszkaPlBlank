@@ -42,13 +42,13 @@ export class ChatComponent implements OnInit {
   addMessage() {
     this.messageService.addMessage({
       text: this.newMessage,
-      receiverUserName: this.activatedRoute.snapshot.paramMap.get("id")
+      receiverUserName: this.activatedRoute.snapshot.paramMap.get('id')
     }).subscribe(() => {
-      const username = this.activatedRoute.snapshot.paramMap.get("id");
+      const username = this.activatedRoute.snapshot.paramMap.get('id');
       this.messageService
         .getMessages(1, username)
         .subscribe((messages: Message[]) => {
-          this.messages$.next(messages["items"]);
+          this.messages$.next(messages['items']);
           console.log(this.messages$.value);
         });
     });

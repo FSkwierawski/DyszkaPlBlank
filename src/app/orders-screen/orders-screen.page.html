@@ -18,10 +18,11 @@
       <ion-card-header color="primary">
         {{ order.offerTitle }}
         </ion-card-header>
-      <ion-card-subtitle>{{
+      <ion-card-subtitle>Data złożenia: {{
         order.createdDate | date: "dd.MM.yyyy HH:mm"
       }}</ion-card-subtitle>
-      <ion-card-content>{{ order.authorUserName }}</ion-card-content>
+      <ion-card-content><p>Właściciel oferty: {{ order.offerAuthorUserName }}</p>
+      <p>Zamawiający: {{order.authorUserName}}</p> </ion-card-content>
       <div class="buttons">
         <ion-item>
           <div *ngIf="doneAble">
@@ -34,7 +35,7 @@
           </div>
           <div>
             <ion-fab-button
-              (click)="startChat(order.authorUserName)"
+              (click)="startChat(order.authorUserName, order.offerAuthorUserName)"
               size="small"
               color="primary"
               ><i class="fa fa-envelope"></i></ion-fab-button

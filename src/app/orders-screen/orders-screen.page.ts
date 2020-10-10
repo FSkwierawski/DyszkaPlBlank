@@ -1,3 +1,4 @@
+import { IdentityService } from './../services/identity.service';
 import { Router } from '@angular/router';
 import { OrderService } from './../services/order.service';
 import { BehaviorSubject } from 'rxjs';
@@ -14,7 +15,8 @@ export class OrdersScreenPage implements OnInit {
   constructor(
     public actionSheetController: ActionSheetController,
     private orderService: OrderService,
-    private router: Router) {
+    private router: Router,
+    private identityService: IdentityService) {
       this.orders$.subscribe(orders => {
         this.orders = orders['items'];
       });
@@ -95,7 +97,11 @@ export class OrdersScreenPage implements OnInit {
     });
   }
 
-  startChat(username: string) {
+  startChat(orderAuthorUsername: string, offerAuthorUsername: string) {
+    let username = orderAuthorUsername;
+    if (username === this.identityService.currentUser$.value) {
+      username = offerAuthorUsername;
+    }
     this.router.navigateByUrl(`message-screen/${username}`);
   }
 
