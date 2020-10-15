@@ -1,0 +1,107 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button auto-hide="false" menu="side-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Profil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div *ngIf="loading">
+  <h3>Ładowanie</h3>
+</div>
+
+<ion-content color="primary" *ngIf="!loading">
+  <ion-item>
+    <ion-avatar>
+      <img src="{{user.profileImage}}" />
+    </ion-avatar>
+    <ion-label style="font-size: 25px; padding-left: 10%;">{{user.userName}}</ion-label>
+  </ion-item>
+  <ion-card>
+    <ion-card-header>Opis:</ion-card-header>
+    <ion-card-content>{{user.description}}</ion-card-content>
+  </ion-card>
+  <ion-item>
+    <ion-label>email:</ion-label>
+    <ion-label>{{user.email}}</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>numer telefonu:</ion-label>
+    <ion-label>{{user.telephoneNumber}}</ion-label>
+  </ion-item>
+
+  <ion-card>
+  <div class="buttons">
+    <ion-item>
+      <div *ngIf="isOwner">
+        <ion-fab-button
+          (click)="openProfileDataeditor();"
+          size="small"
+          color="primary"
+          ><i class="fa fa-edit"></i></ion-fab-button>
+      </div>
+      <div>
+        <ion-fab-button
+        (click)="openUserOffers();"
+        size="small"
+        color="primary"
+        ><i class="fa fa-align-justify"></i></ion-fab-button>
+      </div>
+      <div *ngIf="!isOwner">
+        <ion-fab-button
+        (click)="openChat();"
+        size="small"
+        color="primary"
+        ><i class="fa fa-envelope"></i></ion-fab-button>
+      </div>
+      <div *ngIf="isOwner">
+        <ion-fab-button
+        (click)="deleteAccount()"
+        size="small"
+        color="danger"
+        ><i class="fa fa-user-times"></i></ion-fab-button>
+      </div>
+    </ion-item>
+  </div>
+</ion-card>
+  <ion-item>Komentarze:</ion-item>
+  
+  <div>
+    <ion-card *ngFor="let comment of comments">
+      <ion-card-header
+        [class.pos]="comment.isPositive"
+        [class.neg]="!comment.isPositive"
+        >{{ comment.authorUserName }}</ion-card-header
+      >
+      <ion-card-subtitle>{{
+        comment.createdDate | date: "dd.MM.yyyy"
+      }}</ion-card-subtitle>
+      <ion-card-content>{{ comment.text }}</ion-card-content>
+      <div class="deleteButton">
+        <ion-item>
+          <div *ngIf="owner == comment.authorUserName && comment.isPositive == false">
+            <ion-fab-button
+              (click)="setToPositive(comment.id)"
+              size="small"
+              color="success"
+              ><i class="fa fa-repeat"></i
+            ></ion-fab-button>
+          </div>
+          <div *ngIf="owner == comment.authorUserName">
+            <ion-fab-button
+              (click)="deleteComment(comment.id)"
+              size="small"
+              color="danger"
+              >Usuń</ion-fab-button
+            >
+          </div>
+        </ion-item>
+      </div>
+    </ion-card>
+  </div>
+</ion-content>

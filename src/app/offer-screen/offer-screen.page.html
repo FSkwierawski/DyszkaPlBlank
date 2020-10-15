@@ -1,0 +1,55 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button auto-hide="false" menu="side-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Oferty</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen color="primary">
+  <form #form="ngForm">
+  <ion-item (ngSubmit)="getPagedByTags(form)" > 
+    <ion-input name="tags" [(ngModel)]="tags" placeholder="tag1,tag2" clear-input="true" ngModel required></ion-input>
+    <ion-fab-button (click)="getPagedByTags(tags)" type="submit" size="small"><i class="fa fa-search"></i
+      ></ion-fab-button>
+  </ion-item>
+</form>
+
+  <div *ngFor="let offer of offers; let i = index">
+    <ion-card [class.promoted]="isPromoted && i === 0" (click)="openOfferDetails(offer);">
+      <img src="{{offer.image}}"/>
+      <ion-card-header>
+        <ion-card-title>{{offer.title}}</ion-card-title>
+        <ion-card-subtitle>{{offer.authorUserName}}</ion-card-subtitle>
+        <ion-card-subtitle>cena: {{offer.price}} zł</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        {{offer.shortDescription}}
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openOfferCreator();">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-infinite-scroll
+    threshold="100px"
+    id="infinite-scroll"
+    (ionInfinite)="loadOffers($event)"
+  >
+    <ion-infinite-scroll-content
+      loading-spinner="bubbles"
+      loading-text="Loading more data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Edycja danych użytkownika</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content color="primary">
+  <ion-list lines="full">
+    <ion-list-header lines="full">
+      <label>Edytuj swoje dane</label>
+    </ion-list-header>
+    <form [formGroup]="profileCreator" (ngSubmit)="onSubmit()">
+      <ion-item>
+        <ion-label>Dodaj zdjęcie</ion-label>
+        <ion-input
+          type="file"
+          accept="/image/*"
+          formControlName="profileImage"
+          (change)="transformImage($event)"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Nazwa użytkownika: </ion-label>
+        <ion-input [disabled]="true" formControlName="userName" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>numer telefonu: </ion-label>
+        <ion-input formControlName="telephoneNumber" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>adres email: </ion-label>
+        <ion-input formControlName="email" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Krótki opis: </ion-label>
+        <ion-input formControlName="description" type="text"></ion-input>
+      </ion-item>
+      <div>
+        <ion-button
+          size="medium"
+          expand="block"
+          type="submit"
+          [disabled]="!profileCreator.valid"
+          >Edytuj dane</ion-button
+        >
+      </div>
+    </form>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Kreator oferty</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="primary">
+  <ion-list lines="full">
+    <ion-list-header lines="full">
+      <label>Nowa oferta</label>
+    </ion-list-header>
+    <form [formGroup]="offerCreator" (ngSubmit)="onSubmit()">
+      <ion-item>
+        <ion-label>Dodaj zdjęcie</ion-label>
+        <ion-input
+          type="file"
+          accept="/image/*"
+          formControlName="image"
+          (change)="transformImage($event)"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Tytuł oferty: </ion-label>
+        <ion-input placeholder="tytuł" formControlName="title" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Cena: </ion-label>
+        <ion-input placeholder="conajmniej 10zł" formControlName="price" type="number"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Tagi: </ion-label>
+        <ion-input placeholder="tagi wpisywac po przecinku: tag1,tag2" formControlName="tags" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Krótki opis: </ion-label>
+        <ion-input placeholder="treść" formControlName="shortDescription" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Długi opis: </ion-label>
+        <ion-input placeholder="treść" formControlName="description" type="text"></ion-input>
+      </ion-item>
+      <ion-button size="medium" expand="block" type="submit" [disabled]="!offerCreator.valid">Dodaj ofertę</ion-button>
+    </form>
+  </ion-list>
+</ion-content>

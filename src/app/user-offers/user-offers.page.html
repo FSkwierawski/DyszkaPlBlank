@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>AAA</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div *ngFor="let offer of offers">
+    <ion-card (click)="openOfferDetails(offer);">
+      <img src="{{offer.image}}"/>
+      <ion-card-header>
+        <ion-card-title>{{offer.title}}</ion-card-title>
+        <ion-card-subtitle>{{offer.authorUserName}}</ion-card-subtitle>
+        <ion-card-subtitle>cena: {{offer.price}} zł</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        {{offer.shortDescription}}
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+</ion-content>
